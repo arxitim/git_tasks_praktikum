@@ -70,7 +70,7 @@ for i in range(len(questions)):
         make_astley()
     add_question(names[i], questions[i])
     os.system('git commit -am "MOD: question {number}"'.format(number=i))
-    time.sleep(1)
+    time.sleep(2)
     os.system('git push')
-    time.sleep(3) # время до следующего добавления вопроса
+    time.sleep(5) # время до следующего добавления вопроса
 
