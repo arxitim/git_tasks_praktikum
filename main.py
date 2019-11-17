@@ -48,6 +48,7 @@ def add_question(name, question):
                 lines.insert(lines.index(line) + 1,
                              '\n\t\t<tr>\n\t\t\t<td>{name}</td>\n\t\t\t<td>{question}</td>\n\t\t\t<td></td>\n\t\t</tr>'
                              .format(name=name, question=question))
+                break
 
     with open('index.html', 'w') as f:
         f.write('\n'.join(lines))
