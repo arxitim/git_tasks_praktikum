@@ -58,7 +58,7 @@ def make_astley():
     print("HERE")
     with open('index.html', 'r') as f:
         data = f.read()
-        data.replace('src="img/logo.png"', 'src="http://giphygifs.s3.amazonaws.com/media/6b9QApjUesyOs/giphy.gif"')
+        data = data.replace('src="img/logo.png"', 'src="http://giphygifs.s3.amazonaws.com/media/6b9QApjUesyOs/giphy.gif"')
 
     with open('index.html', 'w') as f:
         f.write(data)
