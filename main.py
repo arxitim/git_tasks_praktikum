@@ -3,12 +3,12 @@ import time
 
 questions = [
     'The Answer to the Ultimate Question of Life, the Universe, and Everything?',
-    'Where\'s the money, {name} ? Where\'s the f***ing money, shithead?',
     'What\'s the amount of power required to go back to the future?',
     'What is the name of Iron Man\'s assistant?',
-    'Oh my God! They killed {name}!',
     'Who lives in a pineapple under the sea?',
     'What is the name of the USS Enterprise\'s navigator?',
+    'Oh my God! They killed {name}!',
+    'Where\'s the money, {name} ? Where\'s the f***ing money, shithead?',
     'Who said: "Wakka wakka wakka?"',
     'All you had to do, was follow the f***ing {transport}, CJ.',
     'Wake the f**ck up, {warrior}, we have a city to burn.',
@@ -39,11 +39,12 @@ names = [
     'name16'
 ]
 
+
 def add_question(name, question):
     with open('index.html', 'r') as f:
         lines = f.read().splitlines()
         for line in reversed(lines):
-            if line == '        </tr>':
+            if '</tr>' in line:
                 lines.insert(lines.index(line) + 1,
                              '\n\t\t<tr>\n\t\t\t<td>{name}</td>\n\t\t\t<td>{question}</td>\n\t\t\t<td></td>\n\t\t</tr>'
                              .format(name=name, question=question))
@@ -52,10 +53,23 @@ def add_question(name, question):
         f.write('\n'.join(lines))
 
 
+def make_astley():
+    with open('index.html', 'r') as f:
+        data = f.read()
+        data.replace('src="img/logo.png"', 'src="http://giphygifs.s3.amazonaws.com/media/6b9QApjUesyOs/giphy.gif"')
+
+    with open('index.html', 'w') as f:
+        f.write(data)
+
+
 for i in range(len(questions)):
+    os.system('git pull')  # актуализируем репозиторий
+    time.sleep(3)
+    if i == 4:
+        make_astley()
     add_question(names[i], questions[i])
     os.system('git commit -am "MOD: question {number}"'.format(number=i))
     time.sleep(1)
     os.system('git push')
-    time.sleep(5)
+    time.sleep(3) # время до следующего добавления вопроса
 
