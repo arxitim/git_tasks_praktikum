@@ -43,7 +43,7 @@ names = [
 def add_question(name, question):
     with open('index.html', 'r') as f:
         lines = f.read().splitlines()
-        for line in reversed(lines):
+        for line in lines:
             if '</tr>' in line:
                 lines.insert(lines.index(line) + 1,
                              '\n\t\t<tr>\n\t\t\t<td>{name}</td>\n\t\t\t<td>{question}</td>\n\t\t\t<td></td>\n\t\t</tr>'
@@ -55,6 +55,7 @@ def add_question(name, question):
 
 
 def make_astley():
+    print("HERE")
     with open('index.html', 'r') as f:
         data = f.read()
         data.replace('src="img/logo.png"', 'src="http://giphygifs.s3.amazonaws.com/media/6b9QApjUesyOs/giphy.gif"')
