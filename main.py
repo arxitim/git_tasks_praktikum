@@ -1,7 +1,7 @@
 import os
 import time
 
-questions = [
+QUESTIONS = [
     'The Answer to the Ultimate Question of Life, the Universe, and Everything?',
     'What\'s the amount of power required to go back to the future?',
     'What is the name of Iron Man\'s assistant?',
@@ -20,34 +20,40 @@ questions = [
     'Triss or Yeniffer?',
 ]
 
-names = [
-    'name1',
-    'name2',
-    'name3',
-    'name4',
-    'name5',
-    'name6',
-    'name7',
-    'name8',
-    'name9',
-    'name10',
-    'name11',
-    'name12',
-    'name13',
-    'name14',
-    'name15',
-    'name16'
+NAMES = [
+    'student_1',
+    'student_2',
+    'student_3',
+    'student_4',
+    'student_5',
+    'student_6',
+    'student_7',
+    'student_8',
+    'student_9',
+    'student_10',
+    'student_11',
+    'student_12',
+    'student_13',
+    'student_14',
+    'student_15',
+    'student_16'
 ]
 
 
 def add_question(name, question):
+    """
+    Adds a question to the HTML code
+
+    :param name: string Name of student
+    :param question: string Question for the student
+    :return: None
+    """
     with open('index.html', 'r') as f:
         lines = f.read().splitlines()
         for line in lines:
             if '</tr>' in line:
                 lines.insert(lines.index(line) + 1,
-                             '\n\t\t<tr>\n\t\t\t<td>{name}</td>\n\t\t\t<td>{question}</td>\n\t\t\t<td></td>\n\t\t</tr>'
-                             .format(name=name, question=question))
+                             f'\n\t\t<tr>\n\t\t\t<td>{name}</td>\n\t\t\t<td>{question}</td>\n\t\t\t<td></td>\n\t\t</tr>')
                 break
 
     with open('index.html', 'w') as f:
@@ -55,7 +61,11 @@ def add_question(name, question):
 
 
 def make_astley():
-    print("HERE")
+    """
+    Function to replace the main logo with the Rick (imitation of colleagues' mistakes)
+
+    :return: None
+    """
     with open('index.html', 'r') as f:
         data = f.read()
         data = data.replace('src="img/logo.png"', 'src="http://giphygifs.s3.amazonaws.com/media/6b9QApjUesyOs/giphy.gif"')
@@ -64,14 +74,18 @@ def make_astley():
         f.write(data)
 
 
-for i in range(len(questions)):
-    os.system('git pull')  # актуализируем репозиторий
-    time.sleep(3)
-    if i == 4:
-        make_astley()
-    add_question(names[i], questions[i])
-    os.system('git commit -am "MOD: question {number}"'.format(number=i))
-    time.sleep(2)
-    os.system('git push')
-    time.sleep(5) # время до следующего добавления вопроса
+def main():
+    for i, question in enumerate(QUESTIONS):
+        os.system('git pull')
+        time.sleep(5)
+        if i == 4:          # "random", yeah
+            make_astley()
+        add_question(NAMES[i], question)
+        os.system(f'git commit -am "MOD: question {i}"')
+        time.sleep(5)
+        os.system('git push')
+        time.sleep(120)
 
+
+if __name__ == '__main__':
+    main()
